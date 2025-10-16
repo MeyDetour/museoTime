@@ -55,14 +55,14 @@ class RegistrationController extends AbstractController
 
         // Vérifier que le username est fourni et valide (non vide, pas d'espaces inutiles)
         if (!$user->getUsername() || trim($user->getUsername()) === '' || preg_match('/\s/', $user->getUsername())) {
-            return $this->json(['message' => "S'il vous plaît entrez un username valide"], 400);
+            return $this->json(['message' => "Please enter valid username."], 400);
         }
         if ($userRepository->findOneBy(["username" => $user->getUsername()])) {
-            return $this->json(["message" => "Username déjà utilisé"], 409);
+            return $this->json(["message" => "Username already used."], 409);
         }
         // Vérifier que la localisation  est fourni et valide (non vide, pas d'espaces inutiles)
         if (!$user->getLocalisation() || trim($user->getLocalisation()) === '' || preg_match('/\s/', $user->getLocalisation())) {
-            return $this->json(['message' => "S'il vous plaît entrez votre ville"], 400);
+            return $this->json(['message' => "Please enter valid localisation"], 400);
         }
 
         // Valider l'objet User avec les contraintes Symfony

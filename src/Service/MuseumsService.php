@@ -30,7 +30,7 @@ class MuseumsService
             $image = $this->museumImageRepository->findOneBy(["museumId" => $datum["identifiant"]]);
             $datum["image"] = $image    ? $this->imageService->getImageUrl($image->getImage(), "museum")
                 : null;
-            $datum["themes"] =      $datum["themes"]==""?null: explode(", ",$datum["themes"]);
+            $datum["themes"] =      $datum["themes"]==""?null: explode(";",$datum["themes"]);
             $datum["artiste"] =  $datum["artiste"]==""?null:  explode(", ",$datum["artiste"]);
             $datum["personnage_phare"] =   $datum["personnage_phare"]==""?null:  explode(", ",$datum["personnage_phare"]);
             return $datum;

@@ -167,7 +167,7 @@ final class FavoriteListController extends AbstractController
         $list->setIdsOfMuseums(implode(",", $arrayOfIds));
         $manager->persist($list);
         $manager->flush();
-        return $this->json($list, 200, [], ["groups" => "favoriteList"]);
+        return $this->json(["message"=>"ok"], 200, [], ["groups" => "favoriteList"]);
     }
 
 

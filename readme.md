@@ -1,5 +1,7 @@
 # MuséoTime - Guide d'Installation
 Bienvenue sur MuséoTime ! Ce guide vous aidera à installer et à lancer le projet sur votre machine locale. L'application est développée avec le framework Symfony et utilise PostgreSQL comme base de données.
+ <a href="https://meydetour.github.io/doc-museotime-backend/">🔗 Doc de l'api</a>
+
 
 # Prérequis
 Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre système.

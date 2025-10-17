@@ -1,114 +1,34 @@
-# MuséoTime - Guide d'Installation
-Bienvenue sur MuséoTime ! Ce guide vous aidera à installer et à lancer le projet sur votre machine locale. L'application est développée avec le framework Symfony et utilise PostgreSQL comme base de données.
- <a href="https://meydetour.github.io/doc-museotime-backend/">🔗 Doc de l'api</a>
 
+# MuséoTime
+MuséoTime est une application web qui transforme la consultation de la base de données des musées de France en une expérience personnelle et organisée. Explorez, sauvegardez, et organisez vos futures visites culturelles en toute simplicité.
 
-# Prérequis
-Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre système.
-* PHP (version 8.1 ou supérieure)
-    + Windows : Utilisez XAMPP ou WampServer.
-    + macOS : Utilisez Homebrew (brew install php).
-    + Linux (Debian/Ubuntu) : ```sudo apt update && sudo apt install php php-cli php-pgsql php-mbstring php-xml php-gd```.
-    + <a href="https://dyma.fr/blog/installation-de-php/?campaignId=22795711356&device=c&utm_source=google&gad_source=1&gad_campaignid=22805258542&gbraid=0AAAAADPXRQlgn_hiTgyU2_QCVE5qWXTYx&gclid=CjwKCAjwr8LHBhBKEiwAy47uUq2b223cEziSZHvDAO5Ir4t8hm35B_3803rDbzMIVjd9k8fbJSgLKhoCf3YQAvD_BwE">🔗 Guide d'installation de PHP</a>
+## Contexte du Projet
+Ce projet a été développé en réponse à une initiative du Ministère de la Culture visant à valoriser les données Open Data de la base Muséofile, qui recense les Musées de France.
 
-* Composer
-  + C'est le gestionnaire de dépendances pour PHP
-  + <a href="https://getcomposer.org/download/">🔗 Instructions d'installation de Composer</a>
+L'objectif était de créer un site web permettant non seulement de consulter cette riche base de données via son API, mais aussi d'offrir aux utilisateurs des outils pour s'approprier ces informations et planifier leurs découvertes culturelles.
 
+## Fonctionnalités Principales
 
-* Symfony CLI
-  + L'outil en ligne de commande pour faciliter le développement avec Symfony.
-  + <a href="https://symfony.com/download">Télécharger la CLI Symfony</a>
+MuséoTime a été pensé pour être un compagnon de visite pratique et intuitif.
 
-* PostgreSQL
-  + Notre système de gestion de base de données.
-  + <a href="https://www.postgresql.org/download/">🔗 Télécharger PostgreSQL</a>
-  + Important : Après l'installation, vous devrez créer un utilisateur et une base de données dédiés à ce projet.
-    ```SQL
-        CREATE USER myuser WITH PASSWORD 'mypassword';
-        CREATE DATABASE mydatabase OWNER myuser;
-    ```
+* Recherche et Filtres Intelligents : Trouvez facilement un musée par ville, région, ou thématique pour affiner vos recherches.
+* Listes de Favoris Personnalisées : Ne vous contentez pas d'un simple "j'aime". Créez autant de listes que vous le souhaitez pour organiser vos trouvailles : "À voir ce week-end", "Pour les vacances en Bretagne", "Idées pour Maman", etc.
+* Espace Utilisateur Minimaliste : Un simple nom d'utilisateur suffit. Pas d'emails, pas de notifications inutiles. Votre compte est un espace personnel pour gérer vos listes et vos envies.
+* Partage entre Amis : Vous avez trouvé une pépite ? Partagez-la en un clic avec un autre utilisateur de MuséoTime directement depuis la fiche du musée.
+* Fiches Détaillées avec Carte : Accédez à toutes les informations essentielles d'un musée, y compris sa localisation sur une carte interactive.
 
+## Notre Philosophie : L'Utilité Avant Tout
 
-# Installation du projet
-Suivez ces étapes pour configurer le projet localement.
-
-#### Cloner de dépot
-Ouvrez votre terminal et clonez le projet sur votre machine.
-```bash
-git clone https://github.com/MeyDetour/museoTime.git
-cd museoTime
-````
-
-#### Installer les Dépendances
-Utilisez Composer pour télécharger toutes les bibliothèques nécessaires au projet.
-```bash
-composer install
-```
+Nous avons fait des choix de conception forts pour garantir une expérience utilisateur respectueuse et ciblée :
+* Pas de Données Superflues : Nous ne demandons ni votre nom, ni votre prénom, ni votre adresse email. Un username est suffisant pour les interactions sociales comme le partage.
+* Zéro Pollution par Email : L'application n'envoie aucun email (newsletters, notifications). Nous contribuons ainsi à un environnement numérique plus sain et réduisons notre empreinte carbone.
+* Centré sur l'Organisation Personnelle : MuséoTime n'est pas un réseau social, mais un outil personnel. Le but est de vous aider à organiser vos propres sorties culturelles, pas de vous connecter au monde entier.
 
 
 
 
-#### Configurer l'Environnement
-Créez une copie du fichier d'environnement .env et nommez-la .env.local pour vos configurations locales.
-```bash
-cp .env .env.local
-````
-Ouvrez le fichier .env.local et modifiez la ligne DATABASE_URL avec les informations de votre base de données PostgreSQL que vous avez créée à l'étape des prérequis.
-
-
-```
-# .env.local
-
-# Remplacez user, password, et dbname par vos propres informations
-# Exemple : postgresql://myuser:mypassword@127.0.0.1:5432/mydatabase
-DATABASE_URL="postgresql://user:password@127.0.0.1:5432/dbname?serverVersion=16&charset=utf8"
-```
-
-#### Mettre en place la Base de Données
-Exécutez les commandes suivantes pour créer la structure de la base de données et appliquer les migrations.
-Cela permet de créer la base de données (si elle n'existe pas déjà) et appliquer toutes les migrations pour créer les tables
-```bash
-symfony console doctrine:database:create
-symfony console doctrine:migrations:migrate
-```
-
-
-#### Vérifier la Configuration
-Avant de lancer, assurez-vous que votre environnement remplit toutes les conditions requises par Symfony.
-```bash
-symfony check:requirements
-````
-  
-  
-  
-# Lancer l'application
-Une fois l'installation terminée, vous pouvez démarrer le serveur de développement local.
-```bash
-symfony serve -d
-```
-L'application sera alors accessible à l'adresse indiquée dans le terminal (généralement http://127.0.0.1:8000).
-
-
-
-
-# Dépannage des Erreurs Courantes
-Voici quelques problèmes que vous pourriez rencontrer et leurs solutions.
-
-* Erreur : Driver "gd" not installed
-  + Cause : L'extension PHP pour la manipulation d'images (GD) est manquante.
-  + olution (Linux - Debian/Ubuntu) :
-    ```bash
-    sudo apt install php-gd
-    ```
-
-* Erreur : Cannot load migrations from "/path/to/migrations" because it is not a valid directory
-  + Cause : Le dossier migrations n'existe pas à la racine du projet. Cela peut arriver après un clone si le dossier était vide.
-  + Solution : Créez simplement le dossier manquant.
-        ```bash
-        smkdir migrations
-        ```
-
+## Installation et Lancement
+Pour installer et lancer le projet sur votre machine locale, veuillez suivre notre <a href="https://github.com/MeyDetour/museoTime/blob/master/installation.md">GUIDE D'INSTALLATION DÉTAILLÉ</a>.
 
 
 

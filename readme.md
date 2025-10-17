@@ -37,7 +37,7 @@ Ce projet a été une aventure intense et enrichissante. Voici un retour d'expé
 
 * Défis Rencontrés
   + Le Temps : Le principal défi a été le manque de temps. Le projet a été réalisé en 3 jours de développement pur au lieu des 5 initialement envisagés, le reste du temps étant consacré à la documentation et aux présentations. Cela a nécessité une priorisation stricte des fonctionnalités essentielles.
- + Les Limites de l'API Externe : L'API Muséofile présentait une contrainte majeure : l'absence d'images pour les musées. Pour ne pas présenter un site visuellement pauvre, il a fallu contourner ce problème côté backend en créant une table dédiée pour associer manuellement un ID de musée à une image pertinente.
+  + Les Limites de l'API Externe : L'API Muséofile présentait une contrainte majeure : l'absence d'images pour les musées. Pour ne pas présenter un site visuellement pauvre, il a fallu contourner ce problème côté backend en créant une table dédiée pour associer manuellement un ID de musée à une image pertinente.
 
 * Prochaines Étapes et Ambitions Futures
   + Recherche par Géolocalisation "Musées près de chez moi" : L'objectif est d'utiliser la localisation de l'utilisateur (renseignée de manière privée et sécurisée) pour lui proposer les musées les plus proches de lui. Fini les recommandations de musées magnifiques... mais situés à 500 km !

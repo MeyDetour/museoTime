@@ -33,6 +33,7 @@ final class ShareMuseumController extends AbstractController
     {
         $shares = $this->getUser()->getSharesReceiver();
 
+        // on doit reconstruire l'objet pour pouvoir ajouté les détails du musée associé, sinon seulement l'id du musée est renvoyé
         $data = array_map(function($share) {
             $museum =  $this->museumsService->getMuseumWithId($share->getMuseumId());
             return [

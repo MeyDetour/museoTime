@@ -2,6 +2,8 @@
 # MuséoTime
 MuséoTime est une application web qui transforme la consultation de la base de données des musées de France en une expérience personnelle et organisée. Explorez, sauvegardez, et organisez vos futures visites culturelles en toute simplicité.
 
+![Image de MuséoTime](https://github.com/MeyDetour/museoTime/blob/master/public/Screenshot%20from%202025-10-17%2012-07-48.png)
+
 ## Contexte du Projet
 Ce projet a été développé en réponse à une initiative du Ministère de la Culture visant à valoriser les données Open Data de la base Muséofile, qui recense les Musées de France.
 

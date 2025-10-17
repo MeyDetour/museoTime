@@ -20,6 +20,7 @@ final class MuseumsController extends AbstractController
         $this->museumsService = $museumsService;
     }
 
+
     #[Route('/museum/apply/filters', name: 'apply_filter', methods: ['POST'])]
     public function applyFilter(Request $request, MuseumsService $museumsService): Response
     {
@@ -27,13 +28,15 @@ final class MuseumsController extends AbstractController
         $allMuseums = $museumsService->getMuseums(1000); // récupère tous les musées
         $filtered = [];
 
+
+        // on verifie que le musée respecte les contraintes provoqués par les params
         foreach ($allMuseums as $museum) {
             $match = true;
 
             if (!empty($data["themes"]) && $museum["themes"]) {
-                    if (count(array_intersect($data["themes"], $museum["themes"])) === 0) {
-                        $match = false;
-                    }
+                if (count(array_intersect($data["themes"], $museum["themes"])) === 0) {
+                    $match = false;
+                }
             }
 
             if (!empty($data["domaine_thematique"]) && $museum["domaine_thematique"]) {
@@ -80,7 +83,7 @@ final class MuseumsController extends AbstractController
             "departement" => ["Autres"],
             "annee_creation" => ["Autres"],
         ];
-
+        // pour chaque musée on récupère tous ses theme, et on les ajoute dans la liste si il n'y sont pas déja
         foreach ($museumsService->getMuseums(100) as $museum) {
             // Domaine thématique
             if ($museum["domaine_thematique"]) {
@@ -139,6 +142,7 @@ final class MuseumsController extends AbstractController
         return $this->json($data, 200);
     }
 
+
     #[Route('/museum/{id}', name: 'get_museum')]
     public function getMuseum(MuseumsService $museumsService, $id): Response
     {
@@ -149,6 +153,9 @@ final class MuseumsController extends AbstractController
         return $this->json($museum, 200);
     }
 
+
+
+    // unused
     #[Route('api/museum/{id}', name: 'get_museum_with_user')]
     public function getMuseumWithUser(MuseumsService $museumsService, $id): Response
     {

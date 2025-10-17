@@ -23,7 +23,6 @@ final class FavoriteListController extends AbstractController
 
     public function __Construct(MuseumsService $museumService)
     {
-
         $this->museumService = $museumService;
     }
 
@@ -31,7 +30,11 @@ final class FavoriteListController extends AbstractController
     #[Route('/get/all', name: 'get_all_lists', methods: ["GET"])]
     public function getAll(Request $request, EntityManagerInterface $manager, FavoriteListRepository $repository): Response
     {
+
+        // on parcours mes listes
         $data = array_map(function ($favoriteList) {
+
+            // pour chaque liste on recupère tous les musées et on formatte
             $museums = array_map(function ($museumId) {
                 $museum = $this->museumService->getMuseumWithId($museumId);
                 if (!$museum) return null; // musée introuvable → on ignore
@@ -45,6 +48,7 @@ final class FavoriteListController extends AbstractController
             // on retire les musées null
             $museums = array_filter($museums);
 
+            // on renvoie la liste formaté
             return [
                 'id' => $favoriteList->getId(),
                 'name' => $favoriteList->getName(),
@@ -60,13 +64,15 @@ final class FavoriteListController extends AbstractController
         Route('/create', name: 'create_favorite_list', methods: "POST")]
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $manager, UserRepository $repository): Response
     {
-
+        // récupération de la requête
         $favoriteList = $serializer->deserialize($request->getContent(), FavoriteList::class, "json");
         $favoriteList->setCreatedBy($this->getUser());
 
+        // verification des données inserées
         if (!$favoriteList->getName() || trim($favoriteList->getName()) === '' || preg_match('/\s/', $favoriteList->getName())) {
             return $this->json(["message" => "Please enter valid name"]);
         }
+
         $manager->persist($favoriteList);
         $manager->flush();
         return $this->json($favoriteList, 200, [], ["groups" => "favoriteList"]);
@@ -126,6 +132,9 @@ final class FavoriteListController extends AbstractController
             return $this->json(["message" => "Please enter valid museum id"], 409);
         }
 
+        // La list des museés est stocké sous forme de string, il faut la
+        // transformer en liste puis ajouté l'élement puis retransformer en
+        // chaine de caracteres
         if ($list->getIdsOfMuseums()) {
             $arrayOfIds = explode(",", $list->getIdsOfMuseums());
             if (!in_array($museumId, $arrayOfIds)) {
@@ -160,6 +169,9 @@ final class FavoriteListController extends AbstractController
             return $this->json(["message" => "Please enter valid museum id"], 409);
         }
 
+        // La list des museés est stocké sous forme de string, il faut la
+        // transformer en liste puis retirer l'élement puis retransformer en
+        // chaine de caracteres
         $arrayOfIds = explode(",", $list->getIdsOfMuseums());
         if (($key = array_search($museumId, $arrayOfIds)) !== false) {
             unset($arrayOfIds[$key]);
@@ -183,14 +195,16 @@ final class FavoriteListController extends AbstractController
         if (!$museum) {
             return $this->json(["message" => "Please enter valid museum id"], 409);
         }
+        // on doit chercher dans toutes les list l'id du musées
         foreach ($this->getUser()->getFavoriteLists() as $list) {
             $arrayOfIds = explode(",", $list->getIdsOfMuseums());
             if (($key = array_search($museumId, $arrayOfIds)) !== false) {
                 unset($arrayOfIds[$key]);
+                $list->setIdsOfMuseums(implode(",", $arrayOfIds));
+                $manager->persist($list);
+                $manager->flush();
             }
-            $list->setIdsOfMuseums(implode(",", $arrayOfIds));
-            $manager->persist($list);
-            $manager->flush();
+
         }
 
 
@@ -199,7 +213,7 @@ final class FavoriteListController extends AbstractController
 
 
 
-
+// Cette fonction commenté sert uniquement au debug
 
 //    #[Route('/get/all/inAdminMode', name: 'get_all_lists_DEBUG')]
 //    public function getAllAdmin(Request $request, EntityManagerInterface $manager, FavoriteListRepository $repository): Response

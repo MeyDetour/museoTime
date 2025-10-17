@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class MuseumImageController extends AbstractController
 {
+    // Voir toutes les iamges ajoutés
+
     #[Route('/images/show', name: 'get_museums_images')]
     public function getMuseumsImages(MuseumImageRepository $museumImageRepository): Response
     {
@@ -24,6 +26,9 @@ final class MuseumImageController extends AbstractController
             "museumsImages" => $museumsImages
         ]);
     }
+
+
+    // Ajouté une image à un musée
 
     #[Route('/museum/image', name: 'app_museum_image')]
     public function add(Request $request, EntityManagerInterface $manager): Response

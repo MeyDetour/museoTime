@@ -17,12 +17,7 @@ final class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
-    #[Route('/test-upload', name: 'test_upload', methods: ['POST'])]
-    public function testUpload(Request $request): Response
-    {
-        $file = $request->files->get('museumImage');
-        dd($file, $request->files->all());
-    }
+
 
 
 }

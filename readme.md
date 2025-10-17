@@ -31,14 +31,14 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants sur votre
 # Installation du projet
 Suivez ces étapes pour configurer le projet localement.
 
-## Cloner de dépot
+#### Cloner de dépot
 Ouvrez votre terminal et clonez le projet sur votre machine.
 ```bash
 git clone https://github.com/MeyDetour/museoTime.git
 cd museoTime
 ````
 
-## Installer les Dépendances
+#### Installer les Dépendances
 Utilisez Composer pour télécharger toutes les bibliothèques nécessaires au projet.
 ```bash
 composer install
@@ -47,7 +47,7 @@ composer install
 
 
 
-## Configurer l'Environnement
+#### Configurer l'Environnement
 Créez une copie du fichier d'environnement .env et nommez-la .env.local pour vos configurations locales.
 ```bash
 cp .env .env.local
@@ -63,7 +63,7 @@ Ouvrez le fichier .env.local et modifiez la ligne DATABASE_URL avec les informat
 DATABASE_URL="postgresql://user:password@127.0.0.1:5432/dbname?serverVersion=16&charset=utf8"
 ```
 
-## Mettre en place la Base de Données
+#### Mettre en place la Base de Données
 Exécutez les commandes suivantes pour créer la structure de la base de données et appliquer les migrations.
 Cela permet de créer la base de données (si elle n'existe pas déjà) et appliquer toutes les migrations pour créer les tables
 ```bash
@@ -72,7 +72,7 @@ symfony console doctrine:migrations:migrate
 ```
 
 
-## Vérifier la Configuration
+#### Vérifier la Configuration
 Avant de lancer, assurez-vous que votre environnement remplit toutes les conditions requises par Symfony.
 ```bash
 symfony check:requirements
